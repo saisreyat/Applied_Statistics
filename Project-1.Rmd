@@ -1,0 +1,355 @@
+---
+title: "Project"
+author: "Sriha Yalamanchi"
+date: "4/18/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+data<- read.csv("/Users/srihayalamanchi/Desktop/R project/Metabolic  Syndrome.csv")
+```
+
+```{r}
+rm(list=ls())
+install.packages("Hmisc")
+install.packages("colorspace")
+install.packages("tidyr")
+install.packages("dplyr")
+install.packages("ggpubr")
+install.packages("ltm")
+install.packages("plotly")
+```
+```{r}
+library(Hmisc)
+library(colorspace)
+library(tidyr)
+library(dplyr)
+library(ggpubr)
+library(ltm)
+library(plotly)
+```
+```{r}
+library(Hmisc)
+describe(data)
+```
+```{r}
+#The null values of the data is defined that is true or false
+is.na(data)
+```
+```{r}
+#Sum of total number of null values in the data is calculated
+#Mean of the null values in the data is calculated 
+sum(is.na(data))
+mean(is.na(data))
+```
+```{r}
+#Total number of null null values in each column is determined
+lapply(data,function(x) { length(which(is.na(x)))})
+```
+```{r}
+#The summary of the data is determined
+summary(data_1)
+```
+```{r}
+colSums(is.na(data))
+```
+```{r}
+#The null values in each column (Income, WaistCirc, BMI) is replaced with the median values 
+data1 <- data                                             
+data1$Income[is.na(data1$Income)] <- median(data1$Income, na.rm = TRUE)
+data1
+
+data3 <- data1                                              
+data3$WaistCirc [is.na(data1$WaistCirc )] <- median(data3$WaistCirc, na.rm = TRUE)
+data3
+
+data2 <- data3                                            
+data2$BMI[is.na(data2$BMI)] <- median(data2$BMI, na.rm = TRUE)
+data2
+sum(is.na(data2$WaistCirc))
+```
+```{r}
+#Inferential Stats
+#load the data
+data("data2")
+
+#remove rows with missing values
+data2.complete = data2[complete.cases(data2$Age), ]
+
+#set parameters
+sample.size1 = 30
+
+#set seed for pseudo-random sampling
+set.seed(1011)
+
+#obtain random sample of row numbers
+sample.rows = sample(1:nrow(data2.complete), sample.size1)
+
+#create data2.sample
+data2 = data2.complete[sample.rows, ]
+```
+```{r}
+install.packages("ggpubr")
+library(ggpubr)
+```
+
+```{r}
+attach(data2)
+ggdensity(Income, main="Income of the samples", xlab="Income")
+ggqqplot(Income)
+```
+```{r}
+#SHAPIRO WILK TEST is performed to check if the data is normally distributed or not 
+#AGE
+ggdensity(Age, main="Age of the samples", xlab="Age")
+ggqqplot(Age)
+shapiro.test(data2$Age)
+
+#Income
+ggdensity(Income, main="Income of the samples", xlab="Income")
+ggqqplot(Income)
+shapiro.test(data2$Income)
+```
+```{r}
+ks.test(data2$Age, data2$Income, data2$WaistCirc, data2$BMI, data2$Albuminuria, data2$UrAlbCr, data2$UricAcid, data2$BloodGlucose, data2$HDL, data2$Triglycerides, data=data)
+```
+#P value is less than 0.05, according to Shapiro wilk test, this mean the data is not normally distributed. Hence non parametric tests are used to analyse the data.
+#UricAcid is normally distributed.
+
+```{r}
+# Change line color by Age
+ggplot(data2, aes(x = Age)) +
+  geom_histogram(aes(color = Age), fill = "orange",
+                position = "identity", bins = 30) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) 
+
+# change fill and outline color manually 
+ggplot(data2, aes(x =Income)) +
+  geom_histogram(aes(color =Income , fill = "yellow"), 
+                position = "identity", bins = 30, alpha = 0.4) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) 
+```
+```{r}
+library(Hmisc)
+library(colorspace)
+library(tidyr)
+library(dplyr)
+library(ggpubr)
+library(ltm)
+library(plotly)
+
+ggplot(data2, aes(x = Race, fill = "red", col = "black")) + 
+  geom_bar() + theme(panel.background = element_rect(fill = "white"))
+
+ggplot(data2, aes(x = Age, fill = "red", col = "black")) + 
+  geom_bar() + theme(panel.background = element_rect(fill = "white"))
+
+ggplot(data2, aes(x = Income, fill = "red", col = "black")) + 
+  geom_bar() + theme(panel.background = element_rect(fill = "white"))
+
+ggplot(data2, aes(x = Sex, fill = "red", col = "black")) + 
+  geom_bar() + theme(panel.background = element_rect(fill = "white"))
+
+ggplot(data2, aes(x = Marital, fill = "red", col = "black")) + 
+  geom_bar() + theme(panel.background = element_rect(fill = "white"))
+
+ggplot(data2, aes(x = MetabolicSyndrome, fill = "red", col = "black")) + 
+  geom_bar() + theme(panel.background = element_rect(fill = "white"))
+
+```
+
+```{r}
+install.packages("ltm")
+# loading the package
+library(ltm)
+```
+
+```{r}
+##CORRELATION TEST
+#point biserial correlation tests
+# why not multiserial?
+#some kingd of rank tets?
+library(ltm)
+set.seed(123)
+x <- rnorm(100)
+y <- factor(sample(c("Age", "MetaboliSyndrome"), 100, replace = TRUE))
+biserial.cor(x, y)
+
+set.seed(123)
+x <- rnorm(100)
+y <- factor(sample(c("Sex", "MetaboliSyndrome"), 100, replace = TRUE))
+biserial.cor(x, y)
+
+set.seed(123)
+x <- rnorm(100)
+y <- factor(sample(c("Martial", "MetaboliSyndrome"), 100, replace = TRUE))
+biserial.cor(x, y)
+
+set.seed(123)
+x <- rnorm(100)
+y <- factor(sample(c("Income", "MetaboliSyndrome"), 100, replace = TRUE))
+biserial.cor(x, y)
+
+set.seed(123)
+x <- rnorm(100)
+y <- factor(sample(c("Race", "MetaboliSyndrome"), 100, replace = TRUE))
+biserial.cor(x, y)
+
+```
+```{r}
+##NON-PARAMETRIC TEST is done since the data is not normally distributed
+#Kruskal-Wallis 
+kruskal.test(Age ~ MetabolicSyndrome, data = data2)
+kruskal.test(Sex ~ MetabolicSyndrome, data = data2)
+kruskal.test(Race ~ MetabolicSyndrome, data = data2)
+kruskal.test(Income ~ MetabolicSyndrome, data = data2)
+kruskal.test(Marital ~ MetabolicSyndrome, data = data2)
+```
+
+
+```{r}
+##LOGISTIC REGRESSION
+#Logistic Regression Age Vs MetaboliSyndrome
+set.seed(123)
+x <- rnorm(100)
+y <- factor(sample(c("Age", "MetabolicSyndrome"), 100, replace = TRUE))
+logit <- glm(y ~ x, family = "binomial")
+# Accuracy
+sum(round(predict(logit, type = "response")) == as.numeric(y)) / length(y)
+
+#accuracy value=0.21
+
+# Sensitivity
+sum(round(predict(logit, type = "response")) == as.numeric(y) & as.numeric(y) == 1) /
+                         sum(as.numeric(y))
+
+#sensitivity value=0.1409396
+
+# Precision
+sum(round(predict(logit, type = "response")) == as.numeric(y) & as.numeric(y) == 1) /
+                         sum(round(predict(logit, type = "response") == 1))
+
+#precision value=Infinity
+```
+
+```{r}
+#Logistic Regression Sex Vs MetaboliSyndrome
+set.seed(123)
+x <- rnorm(100)
+y <- factor(sample(c("Sex", "MetabolicSyndrome"), 100, replace = TRUE))
+logit <- glm(y ~ x, family = "binomial")
+# Accuracy
+sum(round(predict(logit, type = "response")) == as.numeric(y)) / length(y)
+
+#accuracy value=0.26
+
+# Sensitivity
+sum(round(predict(logit, type = "response")) == as.numeric(y) & as.numeric(y) == 1) /
+                         sum(as.numeric(y))
+
+#sensitivity value=0.1721854
+
+# Precision
+sum(round(predict(logit, type = "response")) == as.numeric(y) & as.numeric(y) == 1) /
+                         sum(round(predict(logit, type = "response") == 1))
+
+#precision value=Inf
+```
+```{r}
+#Logistic Regression Marital Vs MetaboliSyndrome
+set.seed(123)
+x <- rnorm(100)
+y <- factor(sample(c("Martial", "MetabolicSyndrome"), 100, replace = TRUE))
+logit <- glm(y ~ x, family = "binomial")
+# Accuracy
+sum(round(predict(logit, type = "response")) == as.numeric(y)) / length(y)
+
+#accuracy value=0.21
+
+# Sensitivity
+sum(round(predict(logit, type = "response")) == as.numeric(y) & as.numeric(y) == 1) /
+                         sum(as.numeric(y))
+
+#sensitivity value=0.14099396
+
+# Precision
+sum(round(predict(logit, type = "response")) == as.numeric(y) & as.numeric(y) == 1) /
+                         sum(round(predict(logit, type = "response") == 1))
+
+#precision value=Inf
+
+```
+```{r}
+#Logistic Regression Income Vs MetaboliSyndrome
+set.seed(123)
+x <- rnorm(100)
+y <- factor(sample(c("Income", "MetabolicSyndrome"), 100, replace = TRUE))
+logit <- glm(y ~ x, family = "binomial")
+# Accuracy
+sum(round(predict(logit, type = "response")) == as.numeric(y)) / length(y)
+
+#accuracy value=0.21
+
+# Sensitivity
+sum(round(predict(logit, type = "response")) == as.numeric(y) & as.numeric(y) == 1) /
+                         sum(as.numeric(y))
+
+#sensitivity value=0.1409396
+
+# Precision
+sum(round(predict(logit, type = "response")) == as.numeric(y) & as.numeric(y) == 1) /
+                         sum(round(predict(logit, type = "response") == 1))
+
+#precision value=Inf
+```
+```{r}
+#Logistic Regression Race Vs MetaboliSyndrome
+set.seed(123)
+x <- rnorm(100)
+y <- factor(sample(c("Race", "MetabolicSyndrome"), 100, replace = TRUE))
+logit <- glm(y ~ x, family = "binomial")
+# Accuracy
+sum(round(predict(logit, type = "response")) == as.numeric(y)) / length(y)
+
+#accuracy value=0.26
+
+# Sensitivity
+sum(round(predict(logit, type = "response")) == as.numeric(y) & as.numeric(y) == 1) /
+                         sum(as.numeric(y))
+
+#sensitivity value=0.1721854
+
+# Precision
+sum(round(predict(logit, type = "response")) == as.numeric(y) & as.numeric(y) == 1) /
+                         sum(round(predict(logit, type = "response") == 1))
+
+#precision value=Inf
+```
+```{r}
+xtabs(~MetabolicSyndrome + Sex, data=data2)
+```
+```{r}
+xtabs(~MetabolicSyndrome + Marital, data=data2)
+```
+```{r}
+xtabs(~MetabolicSyndrome + Age, data=data2)
+```
+```{r}
+xtabs(~MetabolicSyndrome + Income, data=data2)
+```
+```{r}
+xtabs(~MetabolicSyndrome + Race, data=data2)
+```
+
+```{r}
+```
+
+
+```{r}
+glm.MetabolicSyndrome<-glm(MetabolicSyndrome~Age + Race + Marital + Income, data=data2, family="binomial")
+```
+
+
