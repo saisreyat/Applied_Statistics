@@ -54,10 +54,41 @@ Statistical Inference: Gained the ability to make informed inferences from healt
 Communication: Enhanced skills in presenting and communicating statistical findings to a diverse audience.
 
 # Project Details
-For more details on the "Predicting the RFFT Score from the PREVED dataset" project, including code, data, and detailed analysis, please refer to the project-specific documentation and files within this repository.
+Data Loading and Initial Exploration
+The project began by loading the dataset, which was stored as a CSV file, into R using the read.csv function. Several R packages were installed and loaded to facilitate data analysis and visualization, including Hmisc, colorspace, tidyr, dplyr, ggpubr, ltm, and plotly.
+The initial exploration of the data was performed using the describe function from the Hmisc package, which provided summary statistics and information about the dataset's variables.
 
-Usage
-This repository serves as a reference for the coursework and project completed during the Applied Statistical Methods for Biomedical Informatics course. You can explore the materials here for educational purposes and as a starting point for your own statistical analysis projects in the field of biomedical informatics.
+Handling Missing Data
+To address missing values in the dataset, various strategies were applied. The following key steps were taken:
+
+Checking for missing values using the is.na function.
+Calculating the total number and mean of missing values in the dataset.
+Determining the number of missing values in each column.
+Replacing null values in specific columns (Income, WaistCirc, BMI) with median values.
+Inferential Statistics
+Inferential statistics were employed to gain insights from the data. The following steps were taken:
+
+Rows with missing values were removed from the dataset.
+Pseudo-random sampling was conducted to create a representative sample from the complete data.
+Data Visualization
+Data visualization was an integral part of the analysis. Various plots and graphs were created using the ggplot2 package to visualize the distribution of data and identify potential patterns. Histograms, density plots, and QQ plots were used to assess the normality of continuous variables like Age and Income.
+
+Non-Parametric Tests
+Due to the non-normal distribution of the data, non-parametric tests were used for statistical analysis. The Kruskal-Wallis test was performed to assess the relationship between categorical variables (e.g., Age, Sex, Income, Marital status, Race) and the presence of metabolic syndrome.
+
+Logistic Regression
+Logistic regression models were constructed to predict the likelihood of metabolic syndrome based on individual variables (Age, Sex, Income, Marital status, Race). Accuracy, sensitivity, and precision metrics were used to evaluate the performance of each logistic regression model.
+
+Correlation Analysis
+Point biserial correlation tests were conducted to analyze the relationship between continuous variables (e.g., Age, Income) and the presence of metabolic syndrome.
+
+Cross-Tabulation
+Cross-tabulations were performed to examine the relationships between categorical variables (e.g., Sex, Marital status) and the presence of metabolic syndrome.
+
+Conclusion
+The project "Predicting the RFFT Score from the PREVED Dataset" showcased a comprehensive analysis of a biomedical dataset related to metabolic syndrome. Through the use of statistical techniques, data visualization, non-parametric tests, logistic regression, and correlation analysis, valuable insights were gained regarding the factors associated with metabolic syndrome.
+
+This project demonstrates the application of advanced statistical methods to biomedical informatics, emphasizing the importance of data preprocessing, inferential statistics, and visualization in deriving meaningful conclusions from complex healthcare datasets.
 
 # Contributing
 Contributions to this repository are welcome. If you have improvements, additional analyses, or insights related to the course topics or project, please feel free to contribute by creating a pull request.
