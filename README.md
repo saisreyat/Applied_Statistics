@@ -4,7 +4,6 @@ Below, we outline the key aspects and achievements of the course and the specifi
 
 # Table of Contents
 Course Overview
-Project Overview
 Key Learnings
 Project Details
 Usage
@@ -28,15 +27,6 @@ Statistical Analysis for Precision Medicine: Selecting and generating regression
 Project Presentation and Communication: Techniques for outlining and formulating paper presentations, ensuring effective communication of statistical findings.
 
 Data Analytics in R: Developing and revising programs to perform data analytics on large, complex datasets using the R programming language.
-
-# Project Overview
-As a significant part of the course, a project titled "Predicting the RFFT Score from the PREVED dataset" was conducted. This project involved the following key steps:
-
-Data Exploration: Initial data exploration and visualization in R Studio using ggplot and Plotly libraries. Techniques such as scatterplots and boxplots were employed to identify correlations and patterns within the dataset.
-
-Regression Modeling: Building a multiple linear regression model to predict RFFT (Rey Auditory Verbal Learning Test) scores based on various independent variables, including Age, Education, Smoking, Statins, BMI, and FRS (Framingham Risk Score).
-
-The project aimed to demonstrate proficiency in statistical analysis, data preprocessing, modeling, and interpretation of results within the context of biomedical informatics.
 
 # Key Learnings
 Throughout the course and the project, the following key learnings and skills were acquired:
@@ -89,6 +79,9 @@ Conclusion
 The project "Predicting the RFFT Score from the PREVED Dataset" showcased a comprehensive analysis of a biomedical dataset related to metabolic syndrome. Through the use of statistical techniques, data visualization, non-parametric tests, logistic regression, and correlation analysis, valuable insights were gained regarding the factors associated with metabolic syndrome.
 
 This project demonstrates the application of advanced statistical methods to biomedical informatics, emphasizing the importance of data preprocessing, inferential statistics, and visualization in deriving meaningful conclusions from complex healthcare datasets.
+
+# Usage
+This repository serves as a reference for the coursework and project completed during the Applied Statistical Methods for Biomedical Informatics course. You can explore the materials here for educational purposes and as a starting point for your own statistical analysis projects in the field of biomedical informatics.
 
 # Contributing
 Contributions to this repository are welcome. If you have improvements, additional analyses, or insights related to the course topics or project, please feel free to contribute by creating a pull request.
